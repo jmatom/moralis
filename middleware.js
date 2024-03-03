@@ -1,3 +1,4 @@
+const events = require('events');
 const fs = require('fs');
 const readline = require('readline');
 
@@ -10,7 +11,7 @@ const VALID_KEYS_PATH = __dirname + '/valid-keys.txt';
  * valid api keys
  */
 async function checkIfApiKeyExists(apiKey) {
-  return new Promise((resolve) => {
+  return new Promise(async (resolve) => {
     const rl = readline.createInterface({
       input: fs.createReadStream(VALID_KEYS_PATH),
       crlfDelay: Infinity
@@ -22,6 +23,7 @@ async function checkIfApiKeyExists(apiKey) {
       }
     });
 
+    await events.once(rl, 'close');
     rl.on('end', () => resolve(false))
   })
 };
@@ -37,6 +39,8 @@ module.exports = function (req, res, next) {
   if (!apiKeyExists) {
     return res.status(401).send()
   }
+
+  res.set('x-api-key', apiKey)
 
   return next()
 };

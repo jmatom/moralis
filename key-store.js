@@ -7,16 +7,20 @@ const LINE_ENDING = require('os').EOL;
 // here we could think about using a bloom filter
 const uniqueApiKeys = new Set()
 
-module.exports = async function (req, res) {
+async function generateUniqueApiKey() {
   const apiKey = shortid()
-  uniqueApiKeys.add(apiKey)
-  /**
-   * TODO: Check if api key exists, and in that case generate a new one
-   * Use setInmediate to avoid blocking the main thread, avoiding loops like while
-   */
+  if (uniqueApiKeys.has(apiKey)) {
+    return setInmediate(generateUniqueApiKey)
+  } else {
+    uniqueApiKeys.add(apiKey)
+    await fs.writeFile(VALID_KEYS_PATH, `${apiKey}${LINE_ENDING}`)
 
-  await fs.writeFile(VALID_KEYS_PATH, `apiKey${LINE_ENDING}`)
+    return apiKey
+  }
+}
 
+module.exports = async function (req, res) {
+  const apiKey = await generateUniqueApiKey()
   return res.status(201).send({
     apiKey
   })
