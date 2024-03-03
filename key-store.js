@@ -9,8 +9,9 @@ const uniqueApiKeys = new Set()
 
 async function generateUniqueApiKey() {
   let created = false
+  let apiKey
   while (created === false) {
-    const apiKey = shortid()
+    apiKey = shortid()
     if (!uniqueApiKeys.has(apiKey)) {
       uniqueApiKeys.add(apiKey)
       await fs.writeFile(VALID_KEYS_PATH, `${apiKey}${LINE_ENDING}`, { flag: 'a+' })
@@ -22,7 +23,7 @@ async function generateUniqueApiKey() {
 }
 
 module.exports = async function (req, res) {
-  const apiKey = generateUniqueApiKey()
+  const apiKey = await generateUniqueApiKey()
   return res.status(201).send({
     apiKey
   })
