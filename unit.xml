@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="6.564" tests="7" failures="3">
+  <testsuite name="Root Suite" timestamp="2024-03-03T12:10:45" tests="0" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="express_authentication_middleware_basics" timestamp="2024-03-03T12:10:45" tests="7" file="/Users/jose.mato/Desktop/moralis/e36f7927-8277-4b5b-bec4-c442c3187e3c/test/index.spec.js" time="6.563" failures="3">
+    <testcase name="express_authentication_middleware_basics Should generate an API key and add it to file" time="0.503" classname="Should generate an API key and add it to file">
+    </testcase>
+    <testcase name="express_authentication_middleware_basics Should generate 5 unique API Keys" time="2.002" classname="Should generate 5 unique API Keys">
+      <failure message="Timeout of 2000ms exceeded. For async tests and hooks, ensure &quot;done()&quot; is called; if returning a Promise, ensure it resolves. (/Users/jose.mato/Desktop/moralis/e36f7927-8277-4b5b-bec4-c442c3187e3c/test/index.spec.js)" type="Error"><![CDATA[Error: Timeout of 2000ms exceeded. For async tests and hooks, ensure "done()" is called; if returning a Promise, ensure it resolves. (/Users/jose.mato/Desktop/moralis/e36f7927-8277-4b5b-bec4-c442c3187e3c/test/index.spec.js)
+    at listOnTimeout (node:internal/timers:573:17)
+    at process.processTimers (node:internal/timers:514:7)]]></failure>
+    </testcase>
+    <testcase name="express_authentication_middleware_basics Should return the API Key back in response" time="2.001" classname="Should return the API Key back in response">
+      <failure message="Timeout of 2000ms exceeded. For async tests and hooks, ensure &quot;done()&quot; is called; if returning a Promise, ensure it resolves. (/Users/jose.mato/Desktop/moralis/e36f7927-8277-4b5b-bec4-c442c3187e3c/test/index.spec.js)" type="Error"><![CDATA[Error: Timeout of 2000ms exceeded. For async tests and hooks, ensure "done()" is called; if returning a Promise, ensure it resolves. (/Users/jose.mato/Desktop/moralis/e36f7927-8277-4b5b-bec4-c442c3187e3c/test/index.spec.js)
+    at listOnTimeout (node:internal/timers:573:17)
+    at process.processTimers (node:internal/timers:514:7)]]></failure>
+    </testcase>
+    <testcase name="express_authentication_middleware_basics Should send a 401 if the x-api-key header is not present" time="0.007" classname="Should send a 401 if the x-api-key header is not present">
+    </testcase>
+    <testcase name="express_authentication_middleware_basics Should send a 401 if the x-api-key is invalid" time="2.002" classname="Should send a 401 if the x-api-key is invalid">
+      <failure message="Timeout of 2000ms exceeded. For async tests and hooks, ensure &quot;done()&quot; is called; if returning a Promise, ensure it resolves. (/Users/jose.mato/Desktop/moralis/e36f7927-8277-4b5b-bec4-c442c3187e3c/test/index.spec.js)" type="Error"><![CDATA[Error: Timeout of 2000ms exceeded. For async tests and hooks, ensure "done()" is called; if returning a Promise, ensure it resolves. (/Users/jose.mato/Desktop/moralis/e36f7927-8277-4b5b-bec4-c442c3187e3c/test/index.spec.js)
+    at listOnTimeout (node:internal/timers:573:17)
+    at process.processTimers (node:internal/timers:514:7)]]></failure>
+    </testcase>
+    <testcase name="express_authentication_middleware_basics Should validate header for protected routes" time="0.016" classname="Should validate header for protected routes">
+    </testcase>
+    <testcase name="express_authentication_middleware_basics Should not require auth headers for unprotected routes" time="0.010" classname="Should not require auth headers for unprotected routes">
+    </testcase>
+  </testsuite>
+</testsuites>
