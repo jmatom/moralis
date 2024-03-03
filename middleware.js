@@ -14,7 +14,6 @@ async function checkIfApiKeyExists(apiKey) {
   return new Promise(async (resolve) => {
     const rl = readline.createInterface({
       input: fs.createReadStream(VALID_KEYS_PATH),
-      crlfDelay: Infinity
     });
 
     rl.on('line', (line) => {
@@ -23,19 +22,18 @@ async function checkIfApiKeyExists(apiKey) {
       }
     });
 
-    await events.once(rl, 'close');
-    rl.on('end', () => resolve(false))
+    rl.on('close', () => resolve(false))
   })
 };
 
-module.exports = function (req, res, next) {
+module.exports = async function (req, res, next) {
   const apiKey = req.headers['x-api-key']
-
   if (!apiKey) {
     return res.status(401).send()
   }
 
-  const apiKeyExists = checkIfApiKeyExists(apiKey)
+  const apiKeyExists = await checkIfApiKeyExists(apiKey)
+
   if (!apiKeyExists) {
     return res.status(401).send()
   }
