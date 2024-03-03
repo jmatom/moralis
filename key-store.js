@@ -8,19 +8,21 @@ const LINE_ENDING = require('os').EOL;
 const uniqueApiKeys = new Set()
 
 async function generateUniqueApiKey() {
-  const apiKey = shortid()
-  if (uniqueApiKeys.has(apiKey)) {
-    return setInmediate(generateUniqueApiKey)
-  } else {
-    uniqueApiKeys.add(apiKey)
-    await fs.writeFile(VALID_KEYS_PATH, `${apiKey}${LINE_ENDING}`)
-
-    return apiKey
+  let created = false
+  while (created === false) {
+    const apiKey = shortid()
+    if (!uniqueApiKeys.has(apiKey)) {
+      uniqueApiKeys.add(apiKey)
+      await fs.writeFile(VALID_KEYS_PATH, `${apiKey}${LINE_ENDING}`, { flag: 'a+' })
+      created = true
+    }
   }
+
+  return apiKey
 }
 
 module.exports = async function (req, res) {
-  const apiKey = await generateUniqueApiKey()
+  const apiKey = generateUniqueApiKey()
   return res.status(201).send({
     apiKey
   })
